@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - Game Store</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Products</h1>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="order.html">Order</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="links.html">Useful Links</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="main-content">
+    <h2>Our Games</h2>
+    <ul>
+      <!-- PHP code to fetch and display products from the database -->
+      <?php
+      // Connect to MySQL database
+      $conn = mysqli_connect("localhost", "username", "password", "dbname");
+
+      // Check connection
+      if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+      }
+
+      // Query to fetch products
+      $sql = "SELECT * FROM products";
+      $result = mysqli_query($conn, $sql);
+
+      // Check if products exist
+      if (mysqli_num_rows($result) > 0) {
+        // Output data of each row
+        while($row = mysqli_fetch_assoc($result)) {
+          echo "<li>" . $row["name"] . " - $" . $row["price"] . "</li>";
+        }
+      } else {
+        echo "No products available";
+      }
+
+      // Close connection
+      mysqli_close($conn);
+      ?>
+    </ul
